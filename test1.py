@@ -1,58 +1,31 @@
-d1 = {1:30, 2:20, 3:30, 5:80}
-d2 = {1:40, 2:50, 3:60, 4:70, 6:90}
-
-
-print(d1.keys())
-print(d2.keys())
-
-print(d1.items())
-print(d2.items())
-
-print(d1.values())
-print(d2.values())
-
-
-for k1, v1 in d1.items():
-    print(k1, v1)
-
-for k2, v2 in d2.items():
-    print(k2, v2)
-    if k2 not in d1.keys():
-        print("not in d1: " + str(k2))
-
-both = {}
-one = {}
-for k1, v1 in d1.items():
-    if k1 in d2.keys():
-        print("In d2 " + str(k1))
-        both[k1] = v1
+def applyF_filterG(L, f, g):
+    """
+    Assumes L is a list of integers
+    Assume functions f and g are defined for you.
+    f takes in an integer, applies a function, returns another integer
+    g takes in an integer, applies a Boolean function,
+        returns either True or False
+    Mutates L such that, for each element i originally in L, L contains
+        i if g(f(i)) returns True, and no other elements
+    Returns the largest element in the mutated L or -1 if the list is empty
+    """
+    hold = L[:]
+    for x in hold:
+        if not g(f(x)):
+            L.remove(x)
+    if 0 == len(L):
+        print("should be empty " + str(L))
+        return -1
     else:
-        one[k1] = v1
-for k2, v2 in d2.items():
-    if k2 in d1.keys():
-        print("In d1 " + str(k2))
-        both[k2] = v2
-    else:
-        one[k2] = v2
-print(one)
-print(both)
+        print("Should just have answer " + str(L))
+        return sorted(L)[-1]
 
-def dict_interdiff(d1, d2):
-    """This function will take in two dictionaries and return 2 dictionaries.
-    one  will have the keys that are unique to each dictionary
-    both will have the keys that are in both dictionaries. """
-    one = {}
-    both = {}
-    for k1, v1 in d1.items():
-        if k1 in d2.keys():
-            both[k1] = v1
-        else:
-            one[k1] = v1
-    for k2, v2 in d2.keys():
-        if k2 in d1.keys():
-            both[k2] = v2
-        else:
-            one[k2] = k2
-    return one, both
+def f(i):
+    return i + 2
 
-(dict_interdiff(d1, d2))
+def g(i):
+    return i > 5
+
+L = [2, 1, 0, -1, -2, -3, -4, -5]
+print(applyF_filterG(L, f, g))
+print(L)

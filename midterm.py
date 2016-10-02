@@ -24,7 +24,7 @@ def closest_power(base, num):
     else:
         return step
 
-#print(closest_power(20, 210.0))
+# print(closest_power(20, 210.0))
 
 
 listA = [1, 2, 3]
@@ -46,7 +46,7 @@ def dotProduct(listA, listB):
     return answer
 
 
-#print(dotProduct(listA, listB))
+# print(dotProduct(listA, listB))
 
 L = [[2, -1, 10], [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 101, 10, 1, 1, 5, 4, 3]]
 
@@ -91,3 +91,34 @@ def f(a, b):
 
 # print(dict_interdiff({1: 1, 2: 2, 3: 3, 4: 4}, {1: 1, 2: 2, 3: 3, 4: 5, 6: 2}))
 
+def applyF_filterG(L, f, g):
+    """
+    Assumes L is a list of integers
+    Assume functions f and g are defined for you.
+    f takes in an integer, applies a function, returns another integer
+    g takes in an integer, applies a Boolean function,
+        returns either True or False
+    Mutates L such that, for each element i originally in L, L contains
+        i if g(f(i)) returns True, and no other elements
+    Returns the largest element in the mutated L or -1 if the list is empty
+    """
+    hold = L[:]
+    for x in hold:
+        if not g(f(x)):
+            L.remove(x)
+    if 0 == len(L):
+        print("should be empty " + str(L))
+        return -1
+    else:
+        print("Should just have answer " + str(L))
+        return sorted(L)[-1]
+
+def f(i):
+    return i + 2
+
+def g(i):
+    return i > 5
+
+L = [2, 1, 0, -1, -2, -3, -4, -5]
+# print(applyF_filterG(L, f, g))
+# print(L)
